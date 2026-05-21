@@ -1,0 +1,208 @@
+/* Reset básico e fontes */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: #0d0d0d;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Fundo com imagem da barbearia e overlay escuro */
+.login-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.85)), 
+                url('https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=1470&auto=format&fit=crop') no-repeat center center/cover;
+    padding: 20px;
+}
+
+/* Caixa de Login com efeito Glassmorphism (vidro fosco) */
+.login-box {
+    background: rgba(20, 20, 20, 0.65);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 40px;
+    border-radius: 15px;
+    width: 100%;
+    max-width: 420px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+/* Estilização da Logo */
+.logo {
+    margin-bottom: 35px;
+}
+
+.icon-logo {
+    font-size: 45px;
+    color: #c5a880; /* Dourado Barbearia */
+    transform: rotate(-45deg);
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+.logo h2 {
+    color: #fff;
+    font-size: 28px;
+    letter-spacing: 2px;
+    font-weight: 700;
+}
+
+.logo h2 span {
+    color: #c5a880;
+}
+
+.logo p {
+    color: #aaa;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+/* Grupos de Input Animados */
+.input-group {
+    position: relative;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+}
+
+.input-icon {
+    position: absolute;
+    left: 12px;
+    color: #888;
+    font-size: 20px;
+    transition: 0.3s;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 15px 15px 15px 42px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    outline: none;
+    color: #fff;
+    font-size: 15px;
+    transition: 0.3s;
+}
+
+/* Label Flutuante */
+.input-group label {
+    position: absolute;
+    left: 42px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #888;
+    pointer-events: none;
+    transition: 0.3s ease-all;
+}
+
+/* Animação do Input ao focar ou ao ter texto */
+.input-group input:focus,
+.input-group input:not(:placeholder-shown) {
+    border-color: #c5a880;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.input-group input:focus ~ label,
+.input-group input:not(:placeholder-shown) ~ label {
+    top: -12px;
+    left: 10px;
+    font-size: 12px;
+    color: #c5a880;
+    background: #141414;
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+
+.input-group input:focus ~ .input-icon {
+    color: #c5a880;
+}
+
+/* Opções adicionais */
+.options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    color: #aaa;
+    margin-bottom: 25px;
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.remember-me input {
+    accent-color: #c5a880;
+}
+
+.forgot-pass {
+    color: #aaa;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.forgot-pass:hover {
+    color: #c5a880;
+}
+
+/* Botão de Login */
+.btn-login {
+    width: 100%;
+    padding: 15px;
+    background: #c5a880;
+    border: none;
+    border-radius: 8px;
+    color: #111;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+    letter-spacing: 1px;
+}
+
+.btn-login:hover {
+    background: #b3956b;
+    box-shadow: 0 5px 15px rgba(197, 168, 128, 0.3);
+}
+
+/* Link de Registro */
+.register-link {
+    margin-top: 25px;
+    font-size: 13px;
+    color: #aaa;
+}
+
+.register-link a {
+    color: #c5a880;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.register-link a:hover {
+    text-decoration: underline;
+}
+
+/* Regra para esconder a tela que não está ativa */
+.login-box.hide {
+    display: none;
+}
