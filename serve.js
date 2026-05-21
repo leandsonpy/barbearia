@@ -4,13 +4,13 @@ const cors = require('cors');
 
 const app = express();
 app.use(express.json());
-app.use(cors()); // Permite que o HTML converse com o servidor backend
+app.use(cors());
 
-// Configuração da conexão com o banco de dados MySQL
+// AJUSTADO: Sem senha '' para o padrão do SENAI/XAMPP
 const db = mysql.createConnection({
     host: '127.0.0.1',
-    user: 'root',          // Seu usuário do MySQL
-    password: 'suasenha',   // Sua senha do MySQL
+    user: 'root',          
+    password: '',   
     database: 'barbearia'
 });
 
@@ -22,30 +22,34 @@ db.connect((err) => {
     console.log('Conectado com sucesso ao banco de dados MySQL!');
 });
 
-// Rota de Cadastro de Clientes
+// NOVA ROTA: Salva usuário E cria o agendamento dele
 app.post('/api/cadastro', (req, res) => {
-    const { nome, telefone, email, senha } = req.body;
+    const { nome, telefone, email, senha, data_agendada, horario } = req.body;
 
-    const sql = "INSERT INTO usuarios (nome, telefone, email, senha) VALUES (?, ?, ?, ?)";
-    db.query(sql, [nome, telefone, email, senha], (err, result) => {
+    const sqlUsuario = "INSERT INTO usuarios (nome, telefone, email, senha) VALUES (?, ?, ?, ?)";
+    db.query(sqlUsuario, [nome, telefone, email, senha], (err, result) => {
         if (err) {
             if (err.code === 'ER_DUP_ENTRY') {
                 return res.status(400).json({ mensagem: 'Este e-mail já está cadastrado.' });
             }
-            return res.status(500).json({ mensagem: 'Erro ao salvar no banco de dados.' });
+            return res.status(500).json({ mensagem: 'Erro ao salvar o usuário.' });
         }
-        res.status(201).json({ mensagem: 'Usuário registrado com sucesso!' });
+
+        const sqlAgendamento = "INSERT INTO agendamentos (cliente_nome, data_agendada, horario) VALUES (?, ?, ?)";
+        db.query(sqlAgendamento, [nome, data_agendada, horario], (errAgend) => {
+            if (errAgend) {
+                return res.status(500).json({ mensagem: 'Usuário criado, mas erro na agenda.' });
+            }
+            res.status(201).json({ mensagem: 'Usuário registrado e horário agendado!' });
+        });
     });
 });
 
-// Rota de validação de Login
 app.post('/api/login', (req, res) => {
     const { email, senha } = req.body;
-
     const sql = "SELECT * FROM usuarios WHERE email = ? AND senha = ?";
     db.query(sql, [email, senha], (err, results) => {
         if (err) return res.status(500).json({ mensagem: 'Erro no servidor.' });
-
         if (results.length > 0) {
             res.status(200).json({ mensagem: 'Acesso permitido', usuario: results[0] });
         } else {
@@ -54,7 +58,16 @@ app.post('/api/login', (req, res) => {
     });
 });
 
-// Inicia o servidor na porta 3000
+// NOVA ROTA: Envia os horários para o seu HTML montar a lista
+app.get('/api/agendamentos', (req, res) => {
+    const sql = "SELECT cliente_nome, data_agendada, horario FROM agendamentos ORDER BY data_agendada ASC, horario ASC";
+    db.query(sql, (err, results) => {
+        if (err) return res.status(500).json({ mensagem: 'Erro ao buscar agendamentos.' });
+        res.status(200).json(results);
+    });
+});
+
+// AJUSTADO: Porta 3000 correta no log
 app.listen(3000, () => {
-    console.log('Servidor rodando em http://127.0.0.1:3306');
+    console.log('Servidor rodando em http://localhost:3000');
 });

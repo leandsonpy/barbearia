@@ -49,7 +49,7 @@
             <div class="logo">
                 <span class="material-symbols-outlined icon-logo">content_cut</span>
                 <h2>CRIE SUA <span>CONTA</span></h2>
-                <p>Entre para o clube dos cavalheiros</p>
+                <p>Escolha seu horário e faça o cadastro</p>
             </div>
 
             <form id="cadastroForm">
@@ -77,12 +77,51 @@
                     <label for="cadSenha">Senha</label>
                 </div>
 
-                <button type="submit" class="btn-login">Finalizar Cadastro</button>
+                <div class="input-group">
+                    <span class="material-symbols-outlined input-icon">calendar_month</span>
+                    <input type="date" id="cadData" required placeholder=" ">
+                    <label for="cadData"></label>
+                </div>
+
+                <div class="input-group">
+                    <span class="material-symbols-outlined input-icon">schedule</span>
+                    <input type="time" id="cadHorario" required placeholder=" ">
+                    <label for="cadHorario"></label>
+                </div>
+
+                <button type="submit" class="btn-login">Finalizar e Agendar</button>
             </form>
 
             <div class="register-link">
                 <p>Já tem uma conta? <a href="#" id="linkIrParaLogin">Faça Login</a></p>
             </div>
+        </div>
+
+        <div class="login-box hide" id="painelBox" style="max-width: 600px;">
+            <div class="logo">
+                <span class="material-symbols-outlined icon-logo">calendar_month</span>
+                <h2>HORÁRIOS <span>AGENDADOS</span></h2>
+                <p>Confira a agenda de clientes da barbearia</p>
+            </div>
+
+            <div class="tabela-container">
+                <table class="tabela-agendamentos">
+                    <thead>
+                        <tr>
+                            <th>Cliente</th>
+                            <th>Data</th>
+                            <th>Horário</th>
+                        </tr>
+                    </thead>
+                    <tbody id="corpoTabelaAgendamentos">
+                        <tr>
+                            <td colspan="3" style="color: #888;">Carregando agendamentos...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <button id="btnDesconectar" class="btn-login" style="margin-top: 20px; background: #ff4d4d; color: #fff;">Sair do Painel</button>
         </div>
 
     </div>
